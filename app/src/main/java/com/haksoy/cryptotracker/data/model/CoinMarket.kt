@@ -1,14 +1,14 @@
 package com.haksoy.cryptotracker.data.model
 
+import java.io.Serializable
+
 data class CoinMarket(
     val id: String,
     val symbol: String,
     val name: String,
     val image: String,
     val current_price: Double,
-    val market_cap: Long,
     val market_cap_rank: Int,
-    val fully_diluted_valuation: Long,
     val total_volume: Double,
     val high_24h: Double,
     val low_24h: Double,
@@ -25,6 +25,5 @@ data class CoinMarket(
     val atl: Double,
     val atl_change_percentage: Double,
     val atl_date: String,
-    val roi: Roi,
     val last_updated: String
-)
+):Serializable

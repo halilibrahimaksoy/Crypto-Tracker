@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navi"
+    app:startDestination="@id/coinMarketFragment">
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.haksoy.cryptotracker.ui.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/coinMarketFragment"
+        android:name="com.haksoy.cryptotracker.ui.CoinMarketFragment"
+        android:label="CoinMarketFragment">
+        <action
+            android:id="@+id/action_market_to_alarm"
+            app:destination="@id/coinAlarmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinAlarmFragment"
+        android:name="com.haksoy.cryptotracker.ui.CoinAlarmFragment"
+        android:label="CoinMarketFragment" />
+</navigation>
