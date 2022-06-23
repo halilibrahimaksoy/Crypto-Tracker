@@ -1,7 +1,9 @@
 package com.haksoy.cryptotracker.data.model
 
+import androidx.room.Entity
 import java.io.Serializable
 
+@Entity(primaryKeys = ["id","current_price"])
 data class CoinMarket(
     val id: String,
     val symbol: String,

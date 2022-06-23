@@ -1,4 +1,4 @@
-package com.haksoy.cryptotracker.ui
+package com.haksoy.cryptotracker.ui.coin_market
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.haksoy.cryptotracker.data.model.CoinMarket
 import com.haksoy.cryptotracker.databinding.CoinMarketItemBinding
 
-class CoinMarketAdapter(private val itemClickListener: ItemClickListener) :
+class CoinMarketAdapter(private val itemClickListener: ItemClickListener?) :
     RecyclerView.Adapter<CoinMarketAdapter.MyHolderView>() {
 
     private var list: List<CoinMarket>? = null
@@ -41,14 +41,14 @@ class CoinMarketAdapter(private val itemClickListener: ItemClickListener) :
 
     class MyHolderView(
         private val binding: CoinMarketItemBinding,
-        private val clickListener: ItemClickListener
+        private val clickListener: ItemClickListener?
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var item: CoinMarket
 
         init {
             binding.root.setOnClickListener {
-                clickListener.onItemClicked(item)
+                clickListener!!.onItemClicked(item)
             }
         }
 

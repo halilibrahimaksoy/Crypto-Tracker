@@ -1,4 +1,4 @@
-package com.haksoy.cryptotracker.ui
+package com.haksoy.cryptotracker.ui.coin_market
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

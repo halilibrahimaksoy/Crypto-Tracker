@@ -1,11 +1,15 @@
 package com.haksoy.cryptotracker.data
 
 import com.haksoy.cryptotracker.data.model.CoinMarket
+import com.haksoy.cryptotracker.db.CoinHistoryDao
 import com.haksoy.cryptotracker.network.ApiInterface
 import com.haksoy.cryptotracker.network.Resource
 import javax.inject.Inject
 
-class CoinRepository @Inject constructor(private val retrofitInstance: ApiInterface) {
+class CoinRepository @Inject constructor(
+    private val retrofitInstance: ApiInterface,
+    private val coinHistoryDao: CoinHistoryDao
+) {
 
     suspend fun getCoinMarket(): Resource<List<CoinMarket>> {
         val response = retrofitInstance.getCoins()
@@ -16,5 +20,10 @@ class CoinRepository @Inject constructor(private val retrofitInstance: ApiInterf
                 Resource.Error("Response is empty")
         } else
             Resource.Error(response.message())
+    }
+
+    suspend fun getCoinHistory(coinId: String): List<CoinMarket> {
+        return coinHistoryDao.getAllCoinHistory(coinId)
+
     }
 }
