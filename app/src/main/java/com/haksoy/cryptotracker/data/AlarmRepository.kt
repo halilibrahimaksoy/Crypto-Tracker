@@ -1,4 +1,4 @@
-package com.haksoy.cryptotracker.alarm
+package com.haksoy.cryptotracker.data
 
 import com.haksoy.cryptotracker.data.model.CoinAlarm
 import com.haksoy.cryptotracker.db.CoinAlarmDao

@@ -1,8 +1,9 @@
 package com.haksoy.cryptotracker.ui.coin_alarm
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.haksoy.cryptotracker.alarm.AlarmRepository
+import com.haksoy.cryptotracker.data.AlarmRepository
 import com.haksoy.cryptotracker.data.model.CoinAlarm
 import com.haksoy.cryptotracker.data.model.CoinMarket
 import com.haksoy.cryptotracker.db.CoinHistoryDao
@@ -17,6 +18,7 @@ class CoinAlarmViewModel @Inject constructor(
 ) :
     ViewModel() {
 
+    val message = MutableLiveData<String>()
     fun createAlarm(coinMarket: CoinMarket, minValue: Double, maxValue: Double) =
         viewModelScope.launch {
             alarmRepository.createAlarm(
@@ -28,6 +30,7 @@ class CoinAlarmViewModel @Inject constructor(
                 )
             )
             coinHistoryDao.insertCoinData(coinMarket)
+            message.postValue("Alarm has been created")
         }
 
 }

@@ -3,7 +3,8 @@ package com.haksoy.cryptotracker.di
 import android.content.Context
 import androidx.room.Room
 import com.haksoy.cryptotracker.R
-import com.haksoy.cryptotracker.alarm.AlarmRepository
+import com.haksoy.cryptotracker.data.AlarmRepository
+import com.haksoy.cryptotracker.data.CoinRepository
 import com.haksoy.cryptotracker.db.AppDatabase
 import com.haksoy.cryptotracker.db.CoinAlarmDao
 import com.haksoy.cryptotracker.db.CoinHistoryDao
@@ -45,6 +46,15 @@ class AppModule {
         coinAlarmDao: CoinAlarmDao
     ): AlarmRepository {
         return AlarmRepository(coinAlarmDao)
+    }
+
+    @Singleton
+    @Provides
+    fun getCoinRepository(
+        retrofitInstance: ApiInterface,
+        coinHistoryDao: CoinHistoryDao
+    ): CoinRepository {
+        return CoinRepository(retrofitInstance, coinHistoryDao)
     }
 
     @Provides

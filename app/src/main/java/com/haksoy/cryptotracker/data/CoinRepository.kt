@@ -12,7 +12,17 @@ class CoinRepository @Inject constructor(
 ) {
 
     suspend fun getCoinMarket(): Resource<List<CoinMarket>> {
-        val response = retrofitInstance.getCoins()
+        val response = retrofitInstance.getCoinsMarketData()
+        return if (response.isSuccessful) {
+            if (!response.body().isNullOrEmpty())
+                Resource.Success(response.body()!!)
+            else
+                Resource.Error("Response is empty")
+        } else
+            Resource.Error(response.message())
+    }
+    suspend fun getCoinMarket( id:String): Resource<List<CoinMarket>> {
+        val response = retrofitInstance.getCoinMarketData(id)
         return if (response.isSuccessful) {
             if (!response.body().isNullOrEmpty())
                 Resource.Success(response.body()!!)
