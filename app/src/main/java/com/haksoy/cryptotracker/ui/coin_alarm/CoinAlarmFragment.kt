@@ -21,6 +21,8 @@ class CoinAlarmFragment : Fragment() {
     private lateinit var binding: FragmentCoinAlarmBinding
     private val viewModel: CoinAlarmViewModel by viewModels()
 
+    var minValue = 0.0
+    var maxValue = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -49,7 +51,7 @@ class CoinAlarmFragment : Fragment() {
             })
         }
         binding.deleteAlarm.setOnClickListener {
-viewModel.clearAlarm(coinMarket.id)
+            viewModel.clearAlarm(coinMarket.id)
         }
         viewModel.message.observe(viewLifecycleOwner, Observer {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -59,12 +61,22 @@ viewModel.clearAlarm(coinMarket.id)
 
     private fun createAlarm() {
         viewModel.createAlarm(
-            coinMarket,
-            binding.edtMinValue.text.toString().toDouble(),
-            binding.edtMaxValue.text.toString().toDouble()
+            coinMarket, minValue, maxValue
         )
     }
 
-    private fun validate(): Boolean =
-        binding.edtMaxValue.text.isNotEmpty() || binding.edtMinValue.text.isNotEmpty()
+    private fun validate(): Boolean {
+        minValue = if (binding.edtMinValue.text.toString().isNotEmpty())
+            binding.edtMinValue.text.toString().toDouble()
+        else
+            -1.0
+
+        maxValue = if (binding.edtMaxValue.text.toString().isNotEmpty())
+            binding.edtMaxValue.text.toString().toDouble()
+        else
+            -1.0
+
+        return minValue != -1.0 || maxValue != -1.0
+    }
+
 }

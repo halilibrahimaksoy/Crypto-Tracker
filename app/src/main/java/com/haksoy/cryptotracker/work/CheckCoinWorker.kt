@@ -32,13 +32,13 @@ class CheckCoinWorker @AssistedInject constructor(
         for (coinAlarm in result) {
             val coin: CoinMarket =
                 coinRepository.getCoinMarket(coinAlarm.coinId).data!![0]
-            if (coinAlarm.minValue > coin.current_price)
+            if (coinAlarm.minValue != -1.0 && coinAlarm.minValue > coin.current_price)
                 sendNotification(
                     coin.name,
                     context.getString(R.string.app_name),
                     "${coin.name} coin has lower then ${coinAlarm.minValue} $"
                 )
-            else if (coinAlarm.maxValue < coin.current_price)
+            else if (coinAlarm.maxValue != -1.0 && coinAlarm.maxValue < coin.current_price)
                 sendNotification(
                     coin.name,
                     context.getString(R.string.app_name),
