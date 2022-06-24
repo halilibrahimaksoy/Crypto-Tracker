@@ -33,4 +33,10 @@ class CoinAlarmViewModel @Inject constructor(
             message.postValue("Alarm has been created")
         }
 
+
+    fun clearAlarm(coinId: String) = viewModelScope.launch {
+        alarmRepository.clearAlarm(coinId)
+        message.postValue("Alarms has been cleared")
+    }
+
 }

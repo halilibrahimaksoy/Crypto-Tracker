@@ -7,8 +7,11 @@ import javax.inject.Inject
 class AlarmRepository @Inject constructor(
     private val coinAlarmDao: CoinAlarmDao
 ) {
-    suspend fun createAlarm(coinAlarm: CoinAlarm) {
-        println("")
+    fun createAlarm(coinAlarm: CoinAlarm) {
         coinAlarmDao.insertCoinAlarm(coinAlarm)
+    }
+
+    fun clearAlarm(coinId:String) {
+        coinAlarmDao.clearAlarm(coinId)
     }
 }

@@ -30,5 +30,4 @@ class MainApp:Application() ,Configuration.Provider {
         .setWorkerFactory(myWorkerFactory)
         .build()
 
-
 }

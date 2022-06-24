@@ -48,6 +48,9 @@ class CoinAlarmFragment : Fragment() {
                 putSerializable("Coin", coinMarket)
             })
         }
+        binding.deleteAlarm.setOnClickListener {
+viewModel.clearAlarm(coinMarket.id)
+        }
         viewModel.message.observe(viewLifecycleOwner, Observer {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })

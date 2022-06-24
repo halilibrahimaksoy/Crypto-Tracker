@@ -13,6 +13,7 @@ import com.haksoy.cryptotracker.R
 import com.haksoy.cryptotracker.data.CoinRepository
 import com.haksoy.cryptotracker.data.model.CoinMarket
 import com.haksoy.cryptotracker.db.CoinAlarmDao
+import com.haksoy.cryptotracker.db.CoinHistoryDao
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,7 @@ class CheckCoinWorker @AssistedInject constructor(
     @Assisted val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val coinAlarmDao: CoinAlarmDao,
+    private val coinHistoryDao: CoinHistoryDao,
     private val coinRepository: CoinRepository
 ) : CoroutineWorker(context, workerParams), CoroutineScope {
     override suspend fun doWork(): Result = coroutineScope {
@@ -42,6 +44,9 @@ class CheckCoinWorker @AssistedInject constructor(
                     context.getString(R.string.app_name),
                     "${coin.name} coin has higher then ${coinAlarm.maxValue} $"
                 )
+
+
+            coinHistoryDao.insertCoinData(coin)
         }
         Log.d("", "doWork run")
         Result.success()
